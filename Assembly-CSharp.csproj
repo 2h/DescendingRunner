@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Camera\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Clouds\CloudCollector.cs" />
      <Compile Include="Assets\Scripts\Clouds\CloudSpawner.cs" />
+     <Compile Include="Assets\Scripts\Collectables\Collectable.cs" />
      <Compile Include="Assets\Scripts\GameControllers\HighScoreController.cs" />
      <Compile Include="Assets\Scripts\GameControllers\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\GameControllers\OptionsController.cs" />

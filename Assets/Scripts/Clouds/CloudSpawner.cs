@@ -11,7 +11,7 @@ public class CloudSpawner : MonoBehaviour {
 	private GameObject[] clouds;
 
 	[SerializeField]
-	private GameObject[] collectibles;
+	private GameObject[] collectables;
 
 	private GameObject player;
 
@@ -32,6 +32,12 @@ public class CloudSpawner : MonoBehaviour {
 		setMinAndMaxX();
 		createClouds ();
 		player = GameObject.Find ("Player");
+
+		//deactivate at beginning as they are active from the build
+		for (int i = 0; i < collectables.Length; i++) 
+		{
+			collectables [i].SetActive (false);
+		}
 	}
 
 	void Start()
@@ -145,7 +151,7 @@ public class CloudSpawner : MonoBehaviour {
 			{
 				//regenerate array
 				shuffle (clouds);
-				shuffle (collectibles);
+				shuffle (collectables);
 
 				Vector3 temp = target.transform.position;
 
@@ -177,6 +183,35 @@ public class CloudSpawner : MonoBehaviour {
 
 						clouds [i].transform.position = temp;
 						clouds [i].SetActive (true);
+
+						//create a random index
+						int random = Random.Range(0, collectables.Length);
+
+						//if it's a dark/deadly cloud
+						if (clouds [i].tag != "Deadly") 
+						{
+							if (!collectables [random].activeInHierarchy) 
+							{
+								//position the collectable above the cloud
+								Vector3 temp2 = clouds [i].transform.position;
+								temp2.y += 0.7f;
+
+								if (collectables [random].tag == "Life") 
+								{
+									//life limited to 2
+									if (PlayerScore.lifeCount < 2) 
+									{
+										collectables[random].transform.position = temp2;
+										collectables [random].SetActive (true);
+									}
+								} else 
+								{
+									//if not life but a coin
+									collectables[random].transform.position = temp2;
+									collectables [random].SetActive (true);
+								}
+							}
+						}
 					}
 				}
 
