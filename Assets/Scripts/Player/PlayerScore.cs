@@ -46,6 +46,9 @@ public class PlayerScore : MonoBehaviour {
 				scoreCount++;
 			}
 			previousPosition = transform.position;
+
+			//passed to the text fields in GamePlayCOntroller Class in order to up date the in game UI
+			GamePlayController.instance.SetScore (scoreCount);
 		}
 	}
 
@@ -56,6 +59,11 @@ public class PlayerScore : MonoBehaviour {
 			coinCount++;
 			scoreCount+=200;
 
+			//increment based on trigger with above two values
+			//these are passed to the text fields in GamePlayCOntroller Class in order to up date the in game UI
+			GamePlayController.instance.SetScore (scoreCount);
+			GamePlayController.instance.SetCoinSCore (coinCount);
+
 			AudioSource.PlayClipAtPoint (coinClip, transform.position);
 			target.gameObject.SetActive (false);
 		}
@@ -64,6 +72,12 @@ public class PlayerScore : MonoBehaviour {
 		{
 			lifeCount++;
 			scoreCount += 300;
+
+			//increment based on trigger with above two values
+			//these are passed to the text fields in GamePlayCOntroller Class in order to up date the in game UI
+			GamePlayController.instance.SetScore (scoreCount);
+			GamePlayController.instance.SetLifeScore (lifeCount);
+
 
 			AudioSource.PlayClipAtPoint (lifeClip, transform.position);
 			target.gameObject.SetActive (false);
