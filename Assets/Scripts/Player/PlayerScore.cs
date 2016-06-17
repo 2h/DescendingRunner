@@ -29,6 +29,7 @@ public class PlayerScore : MonoBehaviour {
 	void Start () {
 		previousPosition = transform.position;
 		countScoreBool = true;
+
 	}
 	
 	// Update is called once per frame
@@ -90,6 +91,7 @@ public class PlayerScore : MonoBehaviour {
 			countScoreBool = false;
 
 			lifeCount--;
+			GameManager.instance.CheckGameStatus (scoreCount, coinCount, lifeCount);
 			//With player death, player is placed at an arbitary point away from the camera
 			transform.position = new Vector3 (500, 500, 0);
 		}
@@ -101,6 +103,8 @@ public class PlayerScore : MonoBehaviour {
 			countScoreBool = false;
 
 			lifeCount--;
+			GameManager.instance.CheckGameStatus (scoreCount, coinCount, lifeCount);
+
 			//With player death, player is placed at an arbitary point away from the camera
 			transform.position = new Vector3 (500, 500, 0);
 		}

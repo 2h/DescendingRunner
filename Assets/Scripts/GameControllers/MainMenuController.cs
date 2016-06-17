@@ -10,6 +10,7 @@ public class MainMenuController : MonoBehaviour {
 	
 	public void startGame()
 	{
+		GameManager.instance.gameStartedFromMainMenu = true;
 		Application.LoadLevel ("Jack001");
 	}
 

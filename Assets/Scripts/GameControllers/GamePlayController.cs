@@ -15,17 +15,27 @@ public class GamePlayController : MonoBehaviour {
 	public static GamePlayController instance;
 
 	[SerializeField]
-	private Text scoreText, coinText, lifeText;
+	private Text scoreText, coinText, lifeText, finalScoreText, finalCoinText ;
 
 	[SerializeField]
-	private GameObject pausePanel;
+	private GameObject pausePanel, gameOverPanel;
+
+	[SerializeField]
+	private GameObject readyButton;
 
 	// Use this for initialization
 	void Awake () 
 	{	
 		MakeInstance ();
 	}
-	
+
+	void Start()
+	{
+		Time.timeScale = 0f;
+
+
+	}
+
 	void MakeInstance()
 	{
 		//if no object is assigned to 'instance'
@@ -33,6 +43,31 @@ public class GamePlayController : MonoBehaviour {
 		{
 			instance = this;
 		}
+	}
+
+	public void GameOverShowPanel(int finalScore, int finalCoinScore)
+	{
+		gameOverPanel.SetActive (true);
+		finalScoreText.text = finalScore.ToString ();
+		finalCoinText.text = finalCoinScore.ToString ();
+		StartCoroutine (GameOverLoadMainMenu());
+	}
+
+	IEnumerator GameOverLoadMainMenu()
+	{
+		yield return new WaitForSeconds (2f);
+		Application.LoadLevel("MainMenu");
+	}
+
+	public void PlayerDiedRestartTheGame()
+	{
+		StartCoroutine (PlayerDiedRestart ());
+	}
+
+	IEnumerator PlayerDiedRestart()
+	{
+		yield return new WaitForSeconds (1f);
+		Application.LoadLevel("Jack001");
 	}
 
 	public void SetScore(int score)
@@ -69,6 +104,12 @@ public class GamePlayController : MonoBehaviour {
 	{
 		Time.timeScale = 1f;
 		Application.LoadLevel ("MainMenu");
+	}
+
+	public void StartTheGame()
+	{
+		Time.timeScale = 1f;
+		readyButton. SetActive (false);
 	}
 
 
